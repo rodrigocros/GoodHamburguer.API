@@ -3,6 +3,7 @@ using GoodHamburgerAPI.Data;
 using GoodHamburgerAPI.Models;
 using GoodHamburgerAPI.Services;
 using GoodHamburguer.API.Services.Interfaces;
+using GoodHamburguer.API.Models;
 
 namespace GoodHamburgerAPI.Controllers;
 
@@ -20,11 +21,11 @@ public class OrderController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult CreateOrder([FromBody] Order order)
+    public IActionResult CreateOrder([FromBody] Request request)
     {
-        if (order == null) return BadRequest("Order cannot be null");
+        if (request == null) return BadRequest("Order cannot be null");
         string? error;
-        var createdOrder = _orderService.CreateOrder(order, out error);
+        var createdOrder = _orderService.CreateOrder(request, out error);
         if (createdOrder == null)
         {
             return BadRequest(error);

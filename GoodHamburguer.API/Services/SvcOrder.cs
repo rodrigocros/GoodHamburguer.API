@@ -1,7 +1,9 @@
 using GoodHamburgerAPI.Data;
 using GoodHamburgerAPI.Models;
+using GoodHamburguer.API.Models;
 using GoodHamburguer.API.Services.Interfaces;
 using GoodHamburguer.API.Services.Rules;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GoodHamburgerAPI.Services;
 
@@ -14,30 +16,28 @@ public class SvcOrder : ISvcOrder
         _context = context;
     }
 
-    public Order? CreateOrder(Order order, out string? error)
+    public Order? CreateOrder(Request request, out string? error)
     {
         error = null;
 
-        var sandwich = _context.MenuItems.FirstOrDefault(i => i.Id == order.SandwichId && i.Type == ItemType.Sandwich);
+        var sandwich = _context.MenuItems.FirstOrDefault(i => i.Id == request.SandwichId && i.Type == ItemType.Sandwich);
         if (sandwich == null)
         {
             error = "Invalid sandwich";
             return null;
         }
 
-        if ((order.FriesId != null && order.FriesId == order.SandwichId) ||
-            (order.SoftDrinkId != null && order.SoftDrinkId == order.SandwichId) ||
-            (order.FriesId != null && order.SoftDrinkId != null && order.FriesId == order.SoftDrinkId))
+        if (!VerifyIfDuplicatedItems(request))
         {
-            error = "Duplicate items not allowed.";
+            error = "Duplicated items in order";
             return null;
         }
-
+     
         decimal total = sandwich.Price;
 
-        if (order.FriesId != null)
+        if (request.FriesId != null)
         {
-            var fries = _context.MenuItems.FirstOrDefault(i => i.Id == order.FriesId && i.Name.Contains("Fries"));
+            var fries = _context.MenuItems.FirstOrDefault(i => i.Id == request.FriesId && i.Name.Contains("Fries"));
             if (fries == null)
             {
                 error = "Invalid fries";
@@ -46,9 +46,9 @@ public class SvcOrder : ISvcOrder
             total += fries.Price;
         }
 
-        if (order.SoftDrinkId != null)
+        if (request.SoftDrinkId != null)
         {
-            var drink = _context.MenuItems.FirstOrDefault(i => i.Id == order.SoftDrinkId && i.Name.Contains("Soft Drink"));
+            var drink = _context.MenuItems.FirstOrDefault(i => i.Id == request.SoftDrinkId && i.Name.Contains("Soft Drink"));
             if (drink == null)
             {
                 error = "Invalid soft drink";
@@ -57,6 +57,12 @@ public class SvcOrder : ISvcOrder
             total += drink.Price;
         }
 
+        Order order = new Order
+        {
+            SandwichId = request.SandwichId,
+            FriesId = request.FriesId,
+            SoftDrinkId = request.SoftDrinkId
+        };
         order.Total = DiscountRules.ApplyDiscount(order, total);
 
         _context.Orders.Add(order);
@@ -135,4 +141,16 @@ public class SvcOrder : ISvcOrder
         _context.SaveChanges();
         return existing;
     }
+
+    private bool VerifyIfDuplicatedItems(Request request)
+    {
+        if ((request.FriesId != null && request.FriesId == request.SandwichId) ||
+         (request.SoftDrinkId != null && request.SoftDrinkId == request.SandwichId) ||
+         (request.FriesId != null && request.SoftDrinkId != null && request.FriesId == request.SoftDrinkId))
+        {
+            return false;
+        }
+        return true;
+    }
+
 }
