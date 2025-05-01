@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using GoodHamburgerAPI.Data;
-using GoodHamburgerAPI.Models;
-using GoodHamburgerAPI.Services;
-using GoodHamburguer.API.Services.Interfaces;
-using GoodHamburguer.API.Models;
+using GoodHamburguer.Business.Models;
+using GoodHamburguer.Business.Services.Interfaces;
+
 
 namespace GoodHamburgerAPI.Controllers;
 
@@ -11,12 +9,11 @@ namespace GoodHamburgerAPI.Controllers;
 [Route("[controller]")]
 public class OrderController : ControllerBase
 {
-    private readonly AppDbContext _context;
+
     private readonly ISvcOrder _orderService;
 
-    public OrderController(AppDbContext context, ISvcOrder orderService)
+    public OrderController(ISvcOrder orderService)
     {
-        _context = context;
         _orderService = orderService;
     }
 
@@ -38,29 +35,35 @@ public class OrderController : ControllerBase
     public IActionResult GetOrders() => Ok(_orderService.GetOrders());
 
     [HttpPut("{id}")]
-    public IActionResult UpdateOrder(int id, [FromBody] Order updatedOrder)
+    public IActionResult UpdateOrder(int id, [FromBody] Request updatedRequest)
     {
-        if (updatedOrder == null) return BadRequest("Order cannot be null");
+        if (updatedRequest == null) return BadRequest("Order cannot be null");
         string? error;
-        var order = _orderService.UpdateOrder(id, updatedOrder, out error);
-        if (order == null)
+        var orderToUpdate= _orderService.GetOrders().FirstOrDefault(i => i.Id == id);
+        if (orderToUpdate == null)
         {
-            return NotFound(error);
+            return NotFound("Order not found");
         }
-        return Ok(order);
 
+        var orderUpdated = _orderService.UpdateOrder(id, updatedRequest,  out error);
+
+        if (orderUpdated == null)
+        {
+            return BadRequest(error);
+        }
+
+        return Ok(orderUpdated);
     }
 
     [HttpDelete("{id}")]
     public IActionResult DeleteOrder(int id)
     {
-        var order = _context.Orders.Find(id);
-        if (order == null)
+        var orderToDelete = _orderService.GetOrders().FirstOrDefault(i => i.Id == id);
+        if (orderToDelete == null)
         {
             return NotFound("Order not found");
         }
-        _context.Orders.Remove(order);
-        _context.SaveChanges();
+        _orderService.DeleteOrder(id);
         return NoContent();
 
     }

@@ -1,4 +1,4 @@
-﻿namespace GoodHamburguer.API.Models
+﻿namespace GoodHamburguer.Business.Models
 {
     public class Request
     {

@@ -1,4 +1,4 @@
-namespace GoodHamburgerAPI.Models;
+namespace GoodHamburguer.Business.Models;
 
 public class Order
 {

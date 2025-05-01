@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using GoodHamburgerAPI.Data;
-using GoodHamburgerAPI.Models;
-using GoodHamburguer.API.Services.Interfaces;
+using GoodHamburguer.Business.Services.Interfaces;
 
-namespace GoodHamburgerAPI.Controllers;
+namespace GoodHamburguer.Controllers;
 
 [ApiController]
 [Route("[controller]")]

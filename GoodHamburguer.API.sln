@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodHamburguer.API", "GoodHamburguer.API\GoodHamburguer.API.csproj", "{AE0D5759-C76C-473F-9E43-51394AB5DEE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodHamburguer.Business", "GoodHamburguer.Business\GoodHamburguer.Business.csproj", "{180383A0-A7C1-4037-AE97-91CB550DF075}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodHamburguer.Data", "GoodHamburguer.Data\GoodHamburguer.Data.csproj", "{DB8A3C82-3C57-45DC-8AD0-74D4FDD7E98C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{AE0D5759-C76C-473F-9E43-51394AB5DEE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE0D5759-C76C-473F-9E43-51394AB5DEE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE0D5759-C76C-473F-9E43-51394AB5DEE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{180383A0-A7C1-4037-AE97-91CB550DF075}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{180383A0-A7C1-4037-AE97-91CB550DF075}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{180383A0-A7C1-4037-AE97-91CB550DF075}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{180383A0-A7C1-4037-AE97-91CB550DF075}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB8A3C82-3C57-45DC-8AD0-74D4FDD7E98C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB8A3C82-3C57-45DC-8AD0-74D4FDD7E98C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB8A3C82-3C57-45DC-8AD0-74D4FDD7E98C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB8A3C82-3C57-45DC-8AD0-74D4FDD7E98C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

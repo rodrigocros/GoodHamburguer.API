@@ -1,13 +1,13 @@
-﻿using GoodHamburgerAPI.Models;
+﻿using GoodHamburguer.Business.Models;
 
-namespace GoodHamburguer.API.Services.Rules
+namespace GoodHamburguer.Business.Services.Rules
 {
     public class DiscountRules
     {
-        public static decimal ApplyDiscount(Order order, decimal baseTotal)
+        public static decimal ApplyDiscount(Request request, decimal baseTotal)
         {
-            bool hasFries = order.FriesId != null;
-            bool hasDrink = order.SoftDrinkId != null;
+            bool hasFries = request.FriesId != null;
+            bool hasDrink = request.SoftDrinkId != null;
 
             if (hasFries && hasDrink)
                 return baseTotal * PricingConstants.DiscountComboFull;

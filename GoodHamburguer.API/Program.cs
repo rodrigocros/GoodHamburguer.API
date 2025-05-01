@@ -1,8 +1,8 @@
-using GoodHamburgerAPI.Data;
-using GoodHamburgerAPI.Models;
-using GoodHamburgerAPI.Services;
-using GoodHamburguer.API.Services;
-using GoodHamburguer.API.Services.Interfaces;
+using GoodHamburguer.Business.Models;
+using GoodHamburguer.Business.Services;
+using GoodHamburguer.Business.Services.Interfaces;
+using GoodHamburguer.Data.Context;
+using GoodHamburguer.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -13,6 +13,8 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("GoodHamburgerDB"));
 builder.Services.AddScoped<ISvcOrder, SvcOrder>();
 builder.Services.AddScoped<ISvcMenu, SvcMenu>();
+builder.Services.AddScoped<IMenuRepository, MenuRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
