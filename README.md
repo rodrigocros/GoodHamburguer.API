@@ -1,6 +1,4 @@
-# API de Restaurante - ASP.NET Core
-
-Esta é uma API RESTful desenvolvida com **ASP.NET Core** para gerenciamento de **menu** e **pedidos** em um sistema de restaurante/lanchonete.
+Esta é uma API RESTful desenvolvida com **ASP.NET Core** para gerenciamento de **menu** e **pedidos**.
 
 ---
 
