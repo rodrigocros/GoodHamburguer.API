@@ -22,4 +22,4 @@ dotnet build
 dotnet run
 
 A API estará disponível em:
-[https://localhost:5001 ou http://localhost:5000](https://localhost:7088/swagger/index.html)
+https://localhost:7088/swagger
