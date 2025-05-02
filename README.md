@@ -12,7 +12,7 @@ Esta é uma API RESTful desenvolvida com **ASP.NET Core** para gerenciamento de 
 
 ```bash
 # Clone o repositório
-git clone https://github.com/rodrigocros/GoodHamburguer.API/tree/master
+git clone https://github.com/rodrigocros/GoodHamburguer.API.git
 cd seu-repo
 
 # Compile o projeto
