@@ -16,6 +16,8 @@ public class MenuController : ControllerBase
     }
 
     [HttpGet("all")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<DtoMenuItem>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult GetMenu()
     {
         var menuItems = _svcMenu.GetAllMenuItems();
@@ -33,6 +35,8 @@ public class MenuController : ControllerBase
     }
 
     [HttpGet("sandwiches")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<DtoMenuItem>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult GetSandwiches(){
         var sandwiches = _svcMenu.GetSandwiches();
         if (sandwiches == null)
@@ -49,6 +53,8 @@ public class MenuController : ControllerBase
     }
 
     [HttpGet("extras")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<DtoMenuItem>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult GetExtras()
     {
         var extras = _svcMenu.GetExtras();
